@@ -18,10 +18,43 @@ public class PlayingCard {
   /**
    * Setting field values with a constructor.
    */
-  public PlayingCard(String cardIdentity) {
-    this.cardFace = cardIdentity;
-    this.cardSuit = setSuit(cardFace);
-    this.cardValue = setValue(cardFace);
+  public PlayingCard(String cardIdentity, int handValue) {
+    // Checking if the card face passed in is valid
+    if (isCardValid(cardIdentity) == false) {
+      throw null;
+    } else {
+      this.cardFace = cardIdentity;
+      this.cardSuit = setSuit(cardFace);
+      this.cardValue = setValue(cardFace, handValue);
+    }
+  }
+
+  /**
+   * This method figures out if a card can exist according to the face value the
+   * user passed in.
+   */
+  private Boolean isCardValid(String cardString) {
+    // Initializing a list of possible card faces
+    String[] possibleValues = {"2♥", "3♥", "4♥", "5♥", "6♥", "7♥", "8♥", "9♥",
+                               "10♥", "J♥", "Q♥", "K♥", "A♥", "2♦", "3♦", "4♦",
+                               "5♦", "6♦", "7♦", "8♦", "9♦", "10♦", "J♦", "Q♦",
+                               "K♦", "A♦", "2♣", "3♣", "4♣", "5♣", "6♣", "7♣",
+                               "8♣", "9♣", "10♣", "J♣", "Q♣", "K♣", "A♣", "2♠",
+                               "3♠", "4♠", "5♠", "6♠", "7♠", "8♠", "9♠", "10♠",
+                               "J♠", "Q♠", "K♠", "A♠"};
+
+    // Checking if the card passed in is one of the possible values
+    for (int checkCounter = 0; checkCounter < possibleValues.length;
+         checkCounter++) {
+      if (possibleValues[checkCounter] == cardString) {
+        return true;
+      } else {
+        continue;
+      }
+    }
+
+    // Returning false should no value be found
+    return false;
   }
 
   /**
@@ -38,7 +71,7 @@ public class PlayingCard {
   /**
    * This method finds the value of the card.
    */
-  private int setValue(String cardPicture) {
+  private int setValue(String cardPicture, int aceValue) {
     // Determining the first character to help with finding the value
     char cardNumber = cardPicture.charAt(0);
 
@@ -81,8 +114,14 @@ public class PlayingCard {
       return 10;
 
     } else if (cardNumber == 'A') {
-      // Returning the card value as 11 based on an ace
-      return 11;
+      // Checking to see if the ace should be equal to 1 or 11
+      if (aceValue >= 11) {
+        // Returning the ace value as 1 based on a card hand more than 11
+        return 1;
+      } else {
+        // Returning the ace value as 11 based on a card hand less than 11
+        return 11;
+      }
 
     } else {
       // Returning -1 to show that an error occurred
@@ -94,7 +133,7 @@ public class PlayingCard {
    * This getter shows the user the card face.
    */
   public String getCardFace() {
-    // Returning the card face to the user
+    // Returning the card face
     return this.cardFace;
   }
 
@@ -102,7 +141,7 @@ public class PlayingCard {
    * This getter shows the user the card value.
    */
   public int getCardValue() {
-    // Returning the card value to the user
+    // Returning the card value
     return this.cardValue;
   }
 
@@ -110,6 +149,7 @@ public class PlayingCard {
    * This getter shows the suit of the card.
    */
   public String getCardSuit() {
+    // Returning the card suit
     return this.cardSuit;
   }
 }
