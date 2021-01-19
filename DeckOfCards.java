@@ -1,0 +1,92 @@
+/*
+* This class is a deck of cards.
+*
+* @author  Jacob Bonner
+* @version 1.0
+* @since   2021-01-18
+*/
+
+import java.util.ArrayList; // Import the ArrayList class
+import java.util.Collections; // Import the collections class
+import java.util.Random;  // Import the Random class
+
+/**
+ * This class creates an object that acts like a deck of cards.
+ */
+public class DeckOfCards {
+  // Initializing fields
+  private static String[] possibleCards = {"2♥", "3♥", "4♥", "5♥", "6♥", "7♥", 
+                                           "8♥", "9♥", "10♥", "J♥", "Q♥", "K♥", 
+                                           "A♥", "2♦", "3♦", "4♦", "5♦", "6♦",
+                                           "7♦", "8♦", "9♦", "10♦", "J♦", "Q♦",
+                                           "K♦", "A♦", "2♣", "3♣", "4♣", "5♣",
+                                           "6♣", "7♣", "8♣", "9♣", "10♣", "J♣", 
+                                           "Q♣", "K♣", "A♣", "2♠", "3♠", "4♠", 
+                                           "5♠", "6♠", "7♠", "8♠", "9♠", "10♠",
+                                           "J♠", "Q♠", "K♠", "A♠"};
+
+  /**
+   * Setting field values with a constructor.
+   */
+  public DeckOfCards() {
+    // Setting up the initial deck of cards
+    this.possibleCards = shuffleDeck(possibleCards);
+  }
+
+  /**
+   * This method finds the number of cards in the deck.
+   */
+  public int numberOfCards() {
+    return this.possibleCards.length;
+  }
+
+  /**
+   * This method shuffles the cards in the deck.
+   */
+  private String[] shuffleDeck(String[] initialDeck) {
+    // Setting up a random number generator
+    Random randomNumber = new Random();
+
+    // Adding all the card values to an ArrayList
+    ArrayList<String> tempList = new ArrayList<String>();
+    for (int listCounter = 0; listCounter < this.possibleCards.length - 1; listCounter++) {
+      tempList.add(possibleCards[listCounter]);
+    }
+
+    // Shuffling the array
+    Collections.shuffle(tempList, randomNumber);
+
+    // Placing the shuffled card list elements back into an array
+    for (int shuffle = 0; shuffle < initialDeck.length - 1; shuffle++) {
+      initialDeck[shuffle] = tempList.get(shuffle);
+    }
+
+    // Shuffling in the final card
+    String tempValue = initialDeck[initialDeck.length - 1];
+    int randomIndex = randomNumber.nextInt(52);
+    String topCard = initialDeck[randomIndex];
+    initialDeck[initialDeck.length - 1] = topCard;
+    initialDeck[randomIndex] = tempValue;
+
+    // Returning the shuffled deck of cards
+    return initialDeck;
+  }
+
+  /**
+   * This method draws a card from the deck.
+   */
+  public String drawCard() {
+    // Drawing a card from the deck and assigning it a value
+    String cardDrawn = this.possibleCards[this.possibleCards.length - 1];
+
+    // Removing the card from the top of the deck
+    String[] newDeck = new String[this.possibleCards.length - 1];
+    for (int newCounter = 0; newCounter < newDeck.length; newCounter++) {
+      newDeck[newCounter] = this.possibleCards[newCounter];
+    }
+    this.possibleCards = newDeck;
+
+    // Returning the value of the card that was drawn
+    return cardDrawn;
+  }
+}
