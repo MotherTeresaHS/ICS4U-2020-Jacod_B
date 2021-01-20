@@ -30,7 +30,7 @@ public class DeckOfCards {
    */
   public DeckOfCards() {
     // Setting up the initial deck of cards
-    this.possibleCards = shuffleDeck(possibleCards);
+    this.possibleCards = shuffleDeck(this.possibleCards);
   }
 
   /**
@@ -49,8 +49,9 @@ public class DeckOfCards {
 
     // Adding all the card values to an ArrayList
     ArrayList<String> tempList = new ArrayList<String>();
-    for (int listCounter = 0; listCounter < this.possibleCards.length - 1; listCounter++) {
-      tempList.add(possibleCards[listCounter]);
+    for (int listCounter = 0; listCounter < this.possibleCards.length - 1;
+         listCounter++) {
+      tempList.add(this.possibleCards[listCounter]);
     }
 
     // Shuffling the array
@@ -88,5 +89,25 @@ public class DeckOfCards {
 
     // Returning the value of the card that was drawn
     return cardDrawn;
+  }
+
+  /**
+   * This method draws a card from the deck.
+   */
+  public void recallDeck() {
+    // Setting up a brand new full deck of cards
+    String[] recalledValues = {"2♥", "3♥", "4♥", "5♥", "6♥", "7♥", "8♥", "9♥",
+                               "10♥", "J♥", "Q♥", "K♥", "A♥", "2♦", "3♦", "4♦",
+                               "5♦", "6♦", "7♦", "8♦", "9♦", "10♦", "J♦", "Q♦",
+                               "K♦", "A♦", "2♣", "3♣", "4♣", "5♣", "6♣", "7♣",
+                               "8♣", "9♣", "10♣", "J♣", "Q♣", "K♣", "A♣", "2♠",
+                               "3♠", "4♠", "5♠", "6♠", "7♠", "8♠", "9♠", "10♠",
+                               "J♠", "Q♠", "K♠", "A♠"};
+
+    // Setting the current deck to be the deck with all its cards
+    this.possibleCards = recalledValues;
+
+    // Shuffling the newly recalled deck
+    this.possibleCards = shuffleDeck(this.possibleCards);
   }
 }
