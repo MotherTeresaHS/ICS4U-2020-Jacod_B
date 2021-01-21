@@ -115,7 +115,7 @@ public class PlayingCard {
 
     } else if (cardNumber == 'A') {
       // Checking to see if the ace should be equal to 1 or 11
-      if (aceValue >= 11) {
+      if (aceValue > 11) {
         // Returning the ace value as 1 based on a card hand more than 11
         return 1;
       } else {

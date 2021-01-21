@@ -20,6 +20,170 @@ public class Main {
     System.out.flush();
   }
 
+  /**
+   * This function figures out if a player has gone bust.
+   */
+  static Boolean isBust(CardHand bustHand) {
+    // Checking if the player's hand amount is over 21
+    if (bustHand.getHandValue() > 21) {
+      // Returning the player's hand is valid
+      return true;
+    } else {
+      // Returning the player's hand is valid
+      return false;
+    }
+  }
+
+  /**
+   * This function figures out a winner between the player and the dealer.
+   */
+  static int findWinner(CardHand playerSet, CardHand dealerSet) {
+    // Checking if the player's hand is higher than the dealer's hand
+    if (playerSet.getHandValue() > dealerSet.getHandValue()) {
+      return 0;
+
+      // Checking if the dealer's hand is greater than the player's hand
+    } else if (playerSet.getHandValue() < dealerSet.getHandValue()) {
+      return 1;
+
+      // Returning that there was a tie
+    } else {
+      return 2;
+    }
+  }
+
+  /**
+   * This function pits the player's hand against the dealer's hand.
+   */
+  static int stand(CardHand userSet, CardHand cpuSet, DeckOfCards standDeck,
+                   int money) {
+    // Drawing cards for the dealer
+    while (cpuSet.getHandValue() < 17) {
+      cpuSet = hit(cpuSet, standDeck, cpuSet.amountOfCards());
+    }
+
+    try {
+      // Printing info about the dealer's hand and the card deck
+      System.out.print("Dealer's Hand");
+      System.out.print("       Total: " + cpuSet.getHandValue());
+      System.out.println("       Cards in Deck: " + standDeck.numberOfCards());
+
+      // Printing out the dealer's final hand
+      for (int cpuCounter = 0; cpuCounter < cpuSet.amountOfCards();
+           cpuCounter++) {
+        System.out.print(cpuSet.showCardFace(cpuCounter));
+        if (cpuCounter == cpuSet.amountOfCards() - 1) {
+          continue;
+        } else {
+          System.out.print(" | ");
+        }
+      }
+      System.out.println("");
+      System.out.println("");
+
+      // Printing info about the player's hand and how much money they have
+      System.out.print("Player's Hand");
+      System.out.print("       Total: " + userSet.getHandValue());
+      System.out.println("       Money: $" + money);
+
+      // Printing out the player's final hand
+      for (int userCounter = 0; userCounter < userSet.amountOfCards();
+           userCounter++) {
+        System.out.print(userSet.showCardFace(userCounter));
+        if (userCounter == userSet.amountOfCards() - 1) {
+          continue;
+        } else {
+          System.out.print(" | ");
+        }
+      }
+
+      // Waiting for two seconds before doing anything else
+      Thread.sleep(2000);
+
+      // Checking to see if the dealer went bust
+      if (isBust(cpuSet)) {
+        // Returning that the dealer went bust and awarding money accordingly
+        System.out.println("");
+        System.out.println("");
+        System.out.println("Dealer Went Bust. You Won! You gained $10.");
+        Thread.sleep(2000);
+        money = money + 10;
+        return money;
+      } else {
+        // Figuring out which player won the game
+        int winValue = findWinner(userSet, cpuSet);
+
+        // Printing out the outcome of the round and awarding money accordingly
+        switch (winValue) {
+          case 0:
+            // Case when the player wins
+            System.out.println("");
+            System.out.println("");
+            System.out.println("You Won! You gained $10.");
+            money = money + 10;
+            break;
+
+          case 1:
+            // Case when the dealer wins
+            System.out.println("");
+            System.out.println("");
+            System.out.println("You Lost! You lost $10.");
+            money = money - 10;
+            break;
+
+          case 2:
+            // Case when a tie occurs
+            System.out.println("");
+            System.out.println("");
+            System.out.println("You Tied! You keep your current money.");
+            break;
+
+          default:
+            // No winner was determined
+            System.out.println("");
+            System.out.println("");
+            System.out.println("Unable to determine winner.");
+            break;
+        }
+      }
+
+      // Waiting for three seconds before doing anything else
+      Thread.sleep(3000);
+
+      // Catching any errors that occurred
+    } catch (InterruptedException e) {
+      System.out.println("ERROR: Unable to complete stand");
+    }
+
+    // Returning the player's new amount of money
+    return money;
+  }
+
+  /**
+   * This function allows a player to draw a card.
+   */
+  static CardHand hit(CardHand drawHand, DeckOfCards drawDeck, int handSize) {
+    // Checking if the hand size is too large to draw a card
+    if (handSize > 6) {
+      // Returning the current hand
+      return drawHand;
+
+    } else {
+      // Drawing a new card
+      PlayingCard newCard = new PlayingCard(drawDeck.drawCard(),
+                                            drawHand.getHandValue());
+
+      // Adding the new card to the hand
+      drawHand.addCard(newCard);
+
+      // Returning the card hand
+      return drawHand;
+    }
+  }
+
+  /**
+   * This function prints a help screen for the user.
+   */
   static void helpScreen() {
     // Creating a scanner to receive the input to end the help screen
     final Scanner helpInput = new Scanner(System.in);
@@ -146,6 +310,13 @@ public class Main {
         System.out.println("");
         System.out.println("");
 
+        // Checking to see if the player went bust
+        if (isBust(playerHand)) {
+          System.out.println("");
+          System.out.println("You Went Bust! You lose $10");
+          Thread.sleep(2000);
+        }
+
         // Receiving input for the move the player would like to make
         System.out.print("What would you like to do "
                          + "(Hit/Stand/Help/CashOut): ");
@@ -154,7 +325,25 @@ public class Main {
 
         // Checking to see which input was entered
         if (userInput.equals("HELP")) {
+          // Calling the help screen function
           helpScreen();
+
+        } else if (userInput.equals("HIT")) {
+          // Checking to see if the player can draw another card
+          if (playerHand.amountOfCards() > 5) {
+            // Printing that the user cannot draw anymore cards
+            System.out.println("");
+            System.out.println("You cannot draw anymore cards");
+            Thread.sleep(2000);
+          } else {
+            // Drawing a card
+            playerHand = hit(playerHand, deck, playerHand.amountOfCards());
+          }
+
+        } else if (userInput.equals("STAND")) {
+          // Clearing the screen and calling the stand function to find a winner
+          clearScreen();
+          playerMoney = stand(playerHand, dealerHand, deck, playerMoney);
         }
 
         // Clearing the screen again
