@@ -312,42 +312,45 @@ public class Main {
 
         // Checking to see if the player went bust
         if (isBust(playerHand)) {
-          System.out.println("");
+          // Printing that the player went bust and removing appropriate money
           System.out.println("You Went Bust! You lose $10");
+          playerMoney = playerMoney - 10;
           Thread.sleep(2000);
-        }
+          clearScreen();
+        } else {
 
-        // Receiving input for the move the player would like to make
-        System.out.print("What would you like to do "
-                         + "(Hit/Stand/Help/CashOut): ");
-        String userInputLowerCase = gameInput.nextLine();
-        String userInput = userInputLowerCase.toUpperCase();
+          // Receiving input for the move the player would like to make
+          System.out.print("What would you like to do "
+                           + "(Hit/Stand/Help/CashOut): ");
+          String userInputLowerCase = gameInput.nextLine();
+          String userInput = userInputLowerCase.toUpperCase();
 
-        // Checking to see which input was entered
-        if (userInput.equals("HELP")) {
-          // Calling the help screen function
-          helpScreen();
+          // Checking to see which input was entered
+          if (userInput.equals("HELP")) {
+            // Calling the help screen function
+            helpScreen();
 
-        } else if (userInput.equals("HIT")) {
-          // Checking to see if the player can draw another card
-          if (playerHand.amountOfCards() > 5) {
-            // Printing that the user cannot draw anymore cards
-            System.out.println("");
-            System.out.println("You cannot draw anymore cards");
-            Thread.sleep(2000);
+          } else if (userInput.equals("HIT")) {
+            // Checking to see if the player can draw another card
+            if (playerHand.amountOfCards() > 5) {
+              // Printing that the user cannot draw anymore cards
+              System.out.println("");
+              System.out.println("You cannot draw anymore cards");
+              Thread.sleep(2000);
           } else {
             // Drawing a card
             playerHand = hit(playerHand, deck, playerHand.amountOfCards());
           }
 
-        } else if (userInput.equals("STAND")) {
-          // Clearing the screen and calling the stand function to find a winner
-          clearScreen();
-          playerMoney = stand(playerHand, dealerHand, deck, playerMoney);
-        }
+          } else if (userInput.equals("STAND")) {
+            // Calling the stand function to find a winner
+            clearScreen();
+            playerMoney = stand(playerHand, dealerHand, deck, playerMoney);
+          }
 
-        // Clearing the screen again
-        clearScreen();
+          // Clearing the screen again
+          clearScreen();
+        }
       }
 
       // Catches and tells the user what error occured
