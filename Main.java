@@ -234,7 +234,7 @@ public class Main {
                                             userCardHand.getHandValue());
     userCardHand.addCard(userCard2);
     PlayingCard cpuCard2 = new PlayingCard(cardDeck.drawCard(),
-                                           userCardHand.getHandValue());
+                                           cpuCardHand.getHandValue());
     cpuCardHand.addCard(cpuCard2);
 
     // Creating a list to return each hand from the function
@@ -285,7 +285,20 @@ public class Main {
       while (true) {
         // Printing info about the dealer's hand and the card deck
         System.out.print("Dealer's Hand");
-        System.out.print("       Total: " + dealerHand.showCardValue(1));
+        System.out.print("       Total: ");
+
+        // Checking to see if the card displayed is an ace
+        if (dealerHand.showCardFace(1).equals("A♥")
+            || dealerHand.showCardFace(1).equals("A♦")
+            || dealerHand.showCardFace(1).equals("A♣")
+            || dealerHand.showCardFace(1).equals("A♠")) {
+          System.out.print("11");
+        } else {
+          // Displaying the card face
+          System.out.print(dealerHand.showCardValue(1));
+        }
+
+        // Printing the number of cards currently in the deck
         System.out.println("       Cards in Deck: " + deck.numberOfCards());
 
         // Printing the hand of the dealer
