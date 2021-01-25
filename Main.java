@@ -143,7 +143,7 @@ public class Main {
             // Case when a tie occurs
             System.out.println("");
             System.out.println("");
-            System.out.println("\u001B[32m"
+            System.out.println("\u001B[33m"
                                + "You Tied! You keep your current money."
                                + "\u001B[0m");
             break;
