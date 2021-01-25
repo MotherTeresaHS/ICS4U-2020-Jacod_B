@@ -470,6 +470,9 @@ public class Main {
             // Setting player money to $50
             playerMoney = 50;
 
+            // Clearing the screen
+            clearScreen();
+
           } else if (bankrupt == false) {
             // Printing a farewell message to the user
             System.out.println("");
