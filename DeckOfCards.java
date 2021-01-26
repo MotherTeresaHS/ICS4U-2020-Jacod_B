@@ -34,9 +34,10 @@ public class DeckOfCards {
   }
 
   /**
-   * This method finds the number of cards in the deck.
+   * This getter finds the number of cards in the deck.
    */
   public int numberOfCards() {
+    // Returning the current size of the deck
     return this.possibleCards.length;
   }
 
