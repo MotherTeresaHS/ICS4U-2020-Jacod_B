@@ -64,9 +64,11 @@ public class Main {
 
     try {
       // Printing info about the dealer's hand and the card deck
-      System.out.print("Dealer's Hand");
-      System.out.print("       Total: " + cpuSet.getHandValue());
-      System.out.println("       Cards in Deck: " + standDeck.numberOfCards());
+      System.out.print("\u001B[35m" + "Dealer's Hand" + "\u001B[0m");
+      System.out.print("\u001B[35m" + "       Total: "
+                       + cpuSet.getHandValue() + "\u001B[0m");
+      System.out.println("\u001B[35m" + "       Cards in Deck: "
+                         + standDeck.numberOfCards() + "\u001B[0m");
 
       // Printing out the dealer's final hand
       for (int cpuCounter = 0; cpuCounter < cpuSet.amountOfCards();
@@ -82,9 +84,11 @@ public class Main {
       System.out.println("");
 
       // Printing info about the player's hand and how much money they have
-      System.out.print("Player's Hand");
-      System.out.print("       Total: " + userSet.getHandValue());
-      System.out.println("       Money: $" + money);
+      System.out.print("\u001B[36m" + "Player's Hand" + "\u001B[0m");
+      System.out.print("\u001B[36m" + "       Total: "
+                       + userSet.getHandValue() + "\u001B[0m");
+      System.out.println("\u001B[36m" + "       Money: $"
+                         + money + "\u001B[0m");
 
       // Printing out the player's final hand
       for (int userCounter = 0; userCounter < userSet.amountOfCards();
@@ -105,7 +109,9 @@ public class Main {
         // Returning that the dealer went bust and awarding money accordingly
         System.out.println("");
         System.out.println("");
-        System.out.println("Dealer Went Bust. You Won! You gained $10.");
+        System.out.println("\u001B[32m"
+                           + "Dealer Went Bust. You Won! You gained $10."
+                           + "\u001B[0m");
         Thread.sleep(3000);
         money = money + 10;
         return money;
@@ -119,7 +125,8 @@ public class Main {
             // Case when the player wins
             System.out.println("");
             System.out.println("");
-            System.out.println("You Won! You gained $10.");
+            System.out.println("\u001B[32m" + "You Won! You gained $10."
+                               + "\u001B[0m");
             money = money + 10;
             break;
 
@@ -127,7 +134,8 @@ public class Main {
             // Case when the dealer wins
             System.out.println("");
             System.out.println("");
-            System.out.println("You Lost! You lost $10.");
+            System.out.println("\u001B[31m" + "You Lost! You lost $10."
+                               + "\u001B[0m");
             money = money - 10;
             break;
 
@@ -135,7 +143,9 @@ public class Main {
             // Case when a tie occurs
             System.out.println("");
             System.out.println("");
-            System.out.println("You Tied! You keep your current money.");
+            System.out.println("\u001B[33m"
+                               + "You Tied! You keep your current money."
+                               + "\u001B[0m");
             break;
 
           default:
@@ -278,11 +288,13 @@ public class Main {
 
         // Printing the player's final amount of money
         System.out.println("");
-        System.out.println("Final Money: $" + finalMoney);
+        System.out.println("\u001B[33m" + "Final Money: $" + finalMoney
+                           + "\u001B[0m");
 
         // Printing the amount of rounds played by the player
         System.out.println("");
-        System.out.println("Rounds Played: " + matchesPlayed);
+        System.out.println("\u001B[33m" + "Rounds Played: " + matchesPlayed
+                           + "\u001B[0m");
 
         // Receiving input for the move the player would like to make
         System.out.println("");
@@ -358,31 +370,35 @@ public class Main {
       // Game loop
       while (true) {
         // Printing info about the dealer's hand and the card deck
-        System.out.print("Dealer's Hand");
-        System.out.print("       Total: ");
+        System.out.print("\u001B[35m" + "Dealer's Hand" + "\u001B[0m");
+        System.out.print("\u001B[35m" + "       Total: " + "\u001B[0m");
 
         // Checking to see if the card displayed is an ace
         if (dealerHand.showCardFace(1).equals("A♥")
             || dealerHand.showCardFace(1).equals("A♦")
             || dealerHand.showCardFace(1).equals("A♣")
             || dealerHand.showCardFace(1).equals("A♠")) {
-          System.out.print("11");
+          System.out.print("\u001B[35m" + "11" + "\u001B[0m");
         } else {
           // Displaying the card face
-          System.out.print(dealerHand.showCardValue(1));
+          System.out.print("\u001B[35m" + dealerHand.showCardValue(1)
+                           + "\u001B[0m");
         }
 
         // Printing the number of cards currently in the deck
-        System.out.println("       Cards in Deck: " + deck.numberOfCards());
+        System.out.println("\u001B[35m" + "       Cards in Deck: "
+                           + deck.numberOfCards() + "\u001B[0m");
 
         // Printing the hand of the dealer
         System.out.println("?? | " + dealerHand.showCardFace(1));
         System.out.println("");
 
         // Printing info about the player's hand and how much money they have
-        System.out.print("Player's Hand");
-        System.out.print("       Total: " + playerHand.getHandValue());
-        System.out.println("       Money: $" + playerMoney);
+        System.out.print("\u001B[36m" + "Player's Hand" + "\u001B[0m");
+        System.out.print("\u001B[36m" + "       Total: "
+                         + playerHand.getHandValue() + "\u001B[0m");
+        System.out.println("\u001B[36m" + "       Money: $" + playerMoney
+                           + "\u001B[0m");
 
         // Printing the hand of the player
         for (int playerCounter = 0; playerCounter < playerHand.amountOfCards();
@@ -400,7 +416,8 @@ public class Main {
         // Checking to see if the player went bust
         if (isBust(playerHand)) {
           // Printing that the player went bust and removing appropriate money
-          System.out.println("You Went Bust! You lose $10");
+          System.out.println("\u001B[31m" + "You Went Bust! You lose $10"
+                             + "\u001B[0m");
           playerMoney = playerMoney - 10;
           Thread.sleep(3000);
 
@@ -452,6 +469,9 @@ public class Main {
 
             // Setting player money to $50
             playerMoney = 50;
+
+            // Clearing the screen
+            clearScreen();
 
           } else if (bankrupt == false) {
             // Printing a farewell message to the user
