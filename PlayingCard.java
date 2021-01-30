@@ -21,8 +21,10 @@ public class PlayingCard {
   public PlayingCard(String cardIdentity, int handValue) {
     // Checking if the card face passed in is valid
     if (isCardValid(cardIdentity) == false) {
+      // Throwing an error that the card could not be created
       throw null;
     } else {
+      // Setting the properties of the fields
       this.cardFace = cardIdentity;
       this.cardSuit = setSuit(cardFace);
       this.cardValue = setValue(cardFace, handValue);

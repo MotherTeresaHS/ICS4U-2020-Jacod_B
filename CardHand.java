@@ -37,7 +37,7 @@ public class CardHand {
   }
 
   /**
-   * This method finds and returns the value of a specific card in the hand.
+   * This getter finds and returns the value of a specific card in the hand.
    */
   public int showCardValue(int cardValueIndex) {
     // Returning the value of the card at the index passed in
@@ -45,7 +45,7 @@ public class CardHand {
   }
 
   /**
-   * This method finds and returns the card face of a specific card in the hand.
+   * This getter finds and returns the card face of a specific card in the hand.
    */
   public String showCardFace(int cardFaceIndex) {
     // Returning the face of the card at the index passed in
@@ -53,7 +53,7 @@ public class CardHand {
   }
 
   /**
-   * This method finds and returns the card suit of a specific card in the hand.
+   * This getter finds and returns the card suit of a specific card in the hand.
    */
   public String showCardSuit(int cardSuitIndex) {
     // Returning the suit of the card at the index passed in
